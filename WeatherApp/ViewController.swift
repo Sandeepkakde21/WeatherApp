@@ -43,22 +43,22 @@ class ViewController: UIViewController {
     
     func initialize() -> Void {
         self.getAllDataForCity(CityName: CITY_ENGLAND as NSString)
-//        self.getAllDataForCity(CityName: CITY_UK as NSString)
-//        self.getAllDataForCity(CityName: CITY_WALES as NSString)
-//        self.getAllDataForCity(CityName: CITY_SCOTLAND as NSString)
+        self.getAllDataForCity(CityName: CITY_UK as NSString)
+        self.getAllDataForCity(CityName: CITY_WALES as NSString)
+        self.getAllDataForCity(CityName: CITY_SCOTLAND as NSString)
     }
     
     func getAllDataForCity(CityName cityName:NSString) -> Void {
         //Temp max
         self.getFile(FilePath: BASE_URL_TMAX + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: TMAX as NSString)
-//        //Temp min
-//        self.getFile(FilePath: BASE_URL_TMIN + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: TMIN as NSString)
-//        //RAINFALL
-//        self.getFile(FilePath: BASE_URL_RAINFALL + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: RAINFALL as NSString)
-//        //SUNSHINE
-//        self.getFile(FilePath: BASR_URL_SUNSHINE + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: SUNSHINE as NSString)
-//        //TMEAN
-//        self.getFile(FilePath: BASR_URL_MEANTEMP + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: TMEAN as NSString)
+        //Temp min
+        self.getFile(FilePath: BASE_URL_TMIN + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: TMIN as NSString)
+        //RAINFALL
+        self.getFile(FilePath: BASE_URL_RAINFALL + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: RAINFALL as NSString)
+        //SUNSHINE
+        self.getFile(FilePath: BASR_URL_SUNSHINE + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: SUNSHINE as NSString)
+        //TMEAN
+        self.getFile(FilePath: BASR_URL_MEANTEMP + (cityName as String) + ".txt" as (NSString), Region: cityName, WeatherParameter: TMEAN as NSString)
     }
     
     func getFile(FilePath fileUrl:(NSString), Region region:NSString, WeatherParameter weatherParameter:NSString) -> Void {

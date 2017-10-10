@@ -20,7 +20,7 @@ class WriteFile: NSObject {
     }
     
     //MARK: Declaration of static Variables
-    var csvData = "Region,  Weather_parameter,  year,  key,  value\n"
+    var csvData = "Region,  Weather_param,  year,  key,  value\n"
     var arrMonth:[String] = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","WIN","SPR","SUM","AUT"," ANN"]
     
     //MARK: File Conversion
@@ -32,30 +32,35 @@ class WriteFile: NSObject {
             //ignore first text lines and get actual data ,File is read by horizontal line
             for strline in arrFileLine! {
                 var trimmedString = strline.trimmingCharacters(in: .whitespacesAndNewlines)
-                //Please comment below line of code if you want to specify static 4 spaces in text file as header of txt file having 4 space divider and uncomment index incement by 2 and 4
+                /*Please comment below line of code if you want to specify static 4 spaces in text file as header of txt file having 4 space divider and uncomment index incement by 2 and 4*/
                 trimmedString = trimmedString.components(separatedBy: .whitespacesAndNewlines)
                     .filter { !$0.isEmpty }
                     .joined(separator: " ")
+                
                 if isAddToFile {
                     let arrSepratedData = trimmedString.components(separatedBy: " ") as NSArray
                     var index = 0
                     var indexForMonth = 0
                     var month = ""
+                    
                     while index < arrSepratedData.count {
                         let objweatherData = WeatherData()
                         objweatherData.value = arrSepratedData[index] as? NSString
                         index+=1
-                        //Here first logic is cansider with header space so index is incremented by 2 and 4
+                        /*Please uncomment below line of code if you want to specify static 4 spaces in text file as header of txt file having 4 space divider and comment above line code i.e index+=1 */
                         //index+=2
                         if index<arrSepratedData.count {
                             objweatherData.year = arrSepratedData[index] as? NSString
                         }
                         index+=1
+                        /*Please uncomment below line of code if you want to specify static 4 spaces in text file as header of txt file having 4 space divider and comment above line code i.e index+=1 */
+                        
                         //index+=4
                         if indexForMonth < arrMonth.count {
                             month = arrMonth[indexForMonth]
                             indexForMonth+=1
                         }
+                        //Handle Blank data with N/A
                         if let weatherValue =  objweatherData.value, let weatherYear =  objweatherData.year  {
                             var year = weatherYear
                             var value = weatherValue
@@ -65,7 +70,7 @@ class WriteFile: NSObject {
                             if weatherYear.isEqual(to: "") {
                                 year = "N/A"
                             }
-                            let newLine = "\(region!),\(weatherParam!),\(year),\(month),\(value)\n"
+                            let newLine = "\(region!)\t\(weatherParam!)\t\(year)\t\(month)\t\(value)\n"
                             print(newLine)
                             csvData.append(newLine)
                         }
@@ -80,6 +85,7 @@ class WriteFile: NSObject {
     }
     
     //MARK: File Read ,write ,create function
+    
     private func getCSVFilePath() -> NSURL {
         let fileName = "weather.csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
